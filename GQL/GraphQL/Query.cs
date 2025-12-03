@@ -11,12 +11,12 @@ public class Query
     [UseProjection]
     [UseFiltering]
     [UseSorting]
-    public IQueryable<Product> GetProducts(AppDbContext context)
-        => context.Products;
+    public IQueryable<ProductView> GetProducts(AppDbContext context)
+        => context.ProductsView.AsQueryable();
 
-    public async Task<Product?> GetProductByIdAsync(
+    public async Task<ProductView?> GetProductByIdAsync(
         int id,
         AppDbContext context,
         CancellationToken cancellationToken)
-        => await context.Products.FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+        => await context.ProductsView.FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
 }

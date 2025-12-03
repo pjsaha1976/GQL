@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using GQL.Models;
+using System.Text.Json;
 
 namespace GQL.Data;
 
@@ -10,6 +11,7 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<Product> Products { get; set; }
+    public DbSet<ProductView> ProductsView { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -19,17 +21,25 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Product>(entity =>
         {
             entity.HasKey(e => e.Id);
-            entity.Property(e => e.Name)
-                .IsRequired()
-                .HasMaxLength(200);
-            entity.Property(e => e.Description)
-                .HasMaxLength(1000);
-            entity.Property(e => e.Price)
-                .HasColumnType("decimal(18,2)");
+            entity.Property(e => e.Data)
+                .HasConversion(
+                    v => v.HasValue ? v.Value.GetRawText() : null,
+                    v => v != null ? JsonDocument.Parse(v, default).RootElement : (JsonElement?)null);
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("datetime('now')");
             entity.Property(e => e.UpdatedAt)
                 .HasDefaultValueSql("datetime('now')");
+        });
+
+        // Configure ProductView entity (read-only view)
+        modelBuilder.Entity<ProductView>(entity =>
+        {
+            entity.ToView("ProductsView");
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Data)
+                .HasConversion(
+                    v => v.HasValue ? v.Value.GetRawText() : null,
+                    v => v != null ? JsonDocument.Parse(v, default).RootElement : (JsonElement?)null);
         });
 
         // Seed data can be added here if needed

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GQL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e7ee1801859f2a5d71e736314c0ae6741cbf2ee1")]
 [assembly: System.Reflection.AssemblyProductAttribute("GQL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GQL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

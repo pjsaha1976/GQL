@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using GQL.Data;
 using GQL.Models;
 using GQL.GraphQL;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,16 +14,39 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContextPool<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Add GraphQL
+// Load ProductView configuration
+var configPath = System.IO.Path.Combine(builder.Environment.ContentRootPath, "GraphQL", "productview-config.json");
+Console.WriteLine($"Loading config from: {configPath}");
+var configJson = System.IO.File.ReadAllText(configPath);
+Console.WriteLine($"Config JSON: {configJson}");
+var productViewConfig = JsonSerializer.Deserialize<ProductViewConfig>(configJson, new JsonSerializerOptions 
+{ 
+    PropertyNameCaseInsensitive = true 
+}) ?? new ProductViewConfig();
+Console.WriteLine($"Loaded {productViewConfig.DynamicFields.Count} dynamic fields");
+builder.Services.AddSingleton(productViewConfig);
+builder.Services.AddSingleton<ProductViewTypeModule>();
+builder.Services.AddScoped<ViewManager>();
+
+// Add GraphQL with hot reload support
 builder.Services
     .AddGraphQLServer()
     .AddQueryType<Query>()
     .AddMutationType<Mutation>()
-    .AddProjections()
+    .AddTypeModule<ProductViewTypeModule>()
     .AddFiltering()
-    .AddSorting();
+    .AddProjections()
+    .AddSorting()
+    .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true);
 
 var app = builder.Build();
+
+// Recreate ProductsView based on config
+using (var scope = app.Services.CreateScope())
+{
+    var viewManager = scope.ServiceProvider.GetRequiredService<ViewManager>();
+    await viewManager.RecreateProductsViewAsync();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -39,14 +63,14 @@ app.MapGraphQL();
 // API Endpoints for Products
 app.MapGet("/api/products", async (AppDbContext db) =>
 {
-    return await db.Products.ToListAsync();
+    return await db.ProductsView.ToListAsync();
 })
 .WithName("GetProducts")
 .WithOpenApi();
 
 app.MapGet("/api/products/{id}", async (int id, AppDbContext db) =>
 {
-    var product = await db.Products.FindAsync(id);
+    var product = await db.ProductsView.FirstOrDefaultAsync(p => p.Id == id);
     return product is not null ? Results.Ok(product) : Results.NotFound();
 })
 .WithName("GetProduct")
@@ -70,10 +94,7 @@ app.MapPut("/api/products/{id}", async (int id, Product inputProduct, AppDbConte
     var product = await db.Products.FindAsync(id);
     if (product is null) return Results.NotFound();
     
-    product.Name = inputProduct.Name;
-    product.Description = inputProduct.Description;
-    product.Price = inputProduct.Price;
-    product.Stock = inputProduct.Stock;
+    product.Data = inputProduct.Data;
     product.UpdatedAt = DateTime.UtcNow;
     
     await db.SaveChangesAsync();

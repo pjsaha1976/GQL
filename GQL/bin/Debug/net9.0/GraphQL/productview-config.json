@@ -1,0 +1,19 @@
+{
+  "dynamicFields": [
+    {
+      "name": "name",
+      "type": "String",
+      "jsonPath": "$.name"
+    },
+    {
+      "name": "description",
+      "type": "String",
+      "jsonPath": "$.description"
+    },
+    {
+      "name": "price",
+      "type": "Decimal",
+      "jsonPath": "$.price"
+    }
+  ]
+}

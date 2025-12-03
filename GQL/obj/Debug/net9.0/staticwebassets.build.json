@@ -1,12 +1,1 @@
-{
-  "Version": 1,
-  "Hash": "D19DllQj0bQoP+QyRG3h+Lt/S9HaYTQCC+pKxs1YRZQ=",
-  "Source": "GQL",
-  "BasePath": "_content/GQL",
-  "Mode": "Default",
-  "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
-}
+{"Version":1,"Hash":"D19DllQj0bQoP+QyRG3h+Lt/S9HaYTQCC+pKxs1YRZQ=","Source":"GQL","BasePath":"_content/GQL","Mode":"Default","ManifestType":"Build","ReferencedProjectsConfiguration":[],"DiscoveryPatterns":[],"Assets":[],"Endpoints":[]}

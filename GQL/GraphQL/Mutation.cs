@@ -2,6 +2,7 @@ using HotChocolate;
 using Microsoft.EntityFrameworkCore;
 using GQL.Data;
 using GQL.Models;
+using System.Text.Json;
 
 namespace GQL.GraphQL;
 
@@ -14,10 +15,7 @@ public class Mutation
     {
         var product = new Product
         {
-            Name = input.Name,
-            Description = input.Description,
-            Price = input.Price,
-            Stock = input.Stock,
+            Data = input.Data,
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow
         };
@@ -40,10 +38,7 @@ public class Mutation
             throw new GraphQLException("Product not found");
         }
 
-        product.Name = input.Name;
-        product.Description = input.Description;
-        product.Price = input.Price;
-        product.Stock = input.Stock;
+        product.Data = input.Data;
         product.UpdatedAt = DateTime.UtcNow;
 
         await context.SaveChangesAsync(cancellationToken);
@@ -70,8 +65,5 @@ public class Mutation
 }
 
 public record ProductInput(
-    string Name,
-    string? Description,
-    decimal Price,
-    int Stock
+    JsonElement? Data
 );
