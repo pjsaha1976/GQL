@@ -83,7 +83,8 @@ public class ProductViewTypeModule : ITypeModule, IDisposable
             
             // Explicitly add all fields including dynamic ones
             descriptor.Field(f => f.Id).Type<NonNullType<IntType>>();
-            descriptor.Field(f => f.Data).Type<AnyType>();
+            // Use JsonType to properly serialize JsonElement as JSON object
+            descriptor.Field(f => f.Data).Type<JsonType>();
 
             // Add dynamic fields from config
             Console.WriteLine("Adding dynamic fields:");

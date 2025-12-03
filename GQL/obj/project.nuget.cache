@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "anyod3sOTao=",
+  "dgSpecHash": "6gjCtCh2O+Q=",
   "success": true,
-  "projectFilePath": "c:\\Repos\\GQL-EF\\GQL\\GQL\\GQL.csproj",
+  "projectFilePath": "C:\\Repos\\GQL-EF\\gql\\gql\\GQL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\prosenjitsaha\\.nuget\\packages\\chillicream.nitro.app\\28.0.7\\chillicream.nitro.app.28.0.7.nupkg.sha512",
     "C:\\Users\\prosenjitsaha\\.nuget\\packages\\greendonut\\15.1.11\\greendonut.15.1.11.nupkg.sha512",

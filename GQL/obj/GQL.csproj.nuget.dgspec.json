@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Repos\\GQL-EF\\GQL\\GQL\\GQL.csproj": {}
+    "C:\\Repos\\GQL-EF\\gql\\gql\\GQL.csproj": {}
   },
   "projects": {
-    "c:\\Repos\\GQL-EF\\GQL\\GQL\\GQL.csproj": {
+    "C:\\Repos\\GQL-EF\\gql\\gql\\GQL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Repos\\GQL-EF\\GQL\\GQL\\GQL.csproj",
+        "projectUniqueName": "C:\\Repos\\GQL-EF\\gql\\gql\\GQL.csproj",
         "projectName": "GQL",
-        "projectPath": "c:\\Repos\\GQL-EF\\GQL\\GQL\\GQL.csproj",
+        "projectPath": "C:\\Repos\\GQL-EF\\gql\\gql\\GQL.csproj",
         "packagesPath": "C:\\Users\\prosenjitsaha\\.nuget\\packages\\",
-        "outputPath": "c:\\Repos\\GQL-EF\\GQL\\GQL\\obj\\",
+        "outputPath": "C:\\Repos\\GQL-EF\\gql\\gql\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "c:\\Repos\\GQL-EF\\GQL\\GQL\\NuGet.Config",
+          "C:\\Repos\\GQL-EF\\gql\\gql\\NuGet.Config",
           "C:\\Users\\prosenjitsaha\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"

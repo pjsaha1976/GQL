@@ -8,7 +8,6 @@ namespace GQL.GraphQL;
 
 public class Query
 {
-    [UseProjection]
     [UseFiltering]
     [UseSorting]
     public IQueryable<ProductView> GetProducts(AppDbContext context)
